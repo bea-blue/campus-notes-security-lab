@@ -29,7 +29,7 @@ function flash(?string $message = null): ?string
     return $m;
 }
 
-function redirect(string $to = '/'): never
+function redirect(string $to = '/'): void
 {
     header('Location: ' . $to, true, 303);
     exit;

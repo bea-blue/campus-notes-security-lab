@@ -10,7 +10,7 @@ header('Cache-Control: no-store');
 // any Origin together with Allow-Credentials, which let any site read and
 // change a logged-in user's notes.
 
-function json_out(int $status, array $payload): never
+function json_out(int $status, array $payload): void
 {
     http_response_code($status);
     echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
@@ -63,7 +63,7 @@ if ($method === 'POST') {
     } catch (JsonException) {
         json_out(400, ['error' => 'Malformed JSON']);
     }
-    if (!is_array($data) || array_is_list($data)) {
+    if (!is_array($data) || $data === [] || array_keys($data) === range(0, count($data) - 1)) {
         json_out(400, ['error' => 'Request body must be a JSON object']);
     }
 
