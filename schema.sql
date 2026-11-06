@@ -13,13 +13,16 @@ CREATE TABLE notes (
   user_id INT UNSIGNED NOT NULL,
   title VARCHAR(120) NOT NULL,
   body TEXT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  INDEX idx_notes_user (user_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Synthetic accounts for local use only. The starter login expects MD5.
+-- Synthetic accounts for local use only (passwords are listed in README.md).
+-- Hashes were generated with PHP password_hash(..., PASSWORD_DEFAULT) (bcrypt);
+-- the app verifies them with password_verify(). MD5 is no longer used.
 INSERT INTO users (id, email, password_hash, role) VALUES
-  (1, 'alex@example.test', MD5('LabOnly-Alex-123'), 'student'),
-  (2, 'sam@example.test', MD5('LabOnly-Sam-456'), 'student');
+  (1, 'alex@example.test', '$2y$10$QIS4NhEXkYpAPRhfVxGk6.HNIuwaWvM.mXM7YXDWlOKM5/UjEmJTe', 'student'),
+  (2, 'sam@example.test', '$2y$10$PnDfr8dc1HW64VJKDdwyTuhdI.ez40EVbEXCbExZX/mErfP4XGFx6', 'student');
 
 INSERT INTO notes (user_id, title, body) VALUES
   (1, 'Alex: course reminder', 'Review the security reading before class.'),

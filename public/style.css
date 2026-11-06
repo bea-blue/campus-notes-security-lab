@@ -1,0 +1,6 @@
+body{font:16px sans-serif;max-width:750px;margin:2rem auto}
+label{display:block;margin:.5rem 0}
+article{border:1px solid #aaa;padding:1rem;margin:1rem 0}
+.body{white-space:pre-wrap}
+.inline{display:inline}
+.message{background:#eef;padding:.5rem}
